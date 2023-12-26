@@ -87,6 +87,9 @@ const PokeDetails = () => {
                                             <ListItemText primary="ID" secondary={pokemon.id} />
                                         </ListItem>
                                         <ListItem>
+                                            <ListItemText primary="Types" secondary={pokemon.types.map((type) => type.type.name).join(', ')} />
+                                        </ListItem>
+                                        <ListItem>
                                             <ListItemText primary="Base Experience" secondary={pokemon.base_experience} />
                                         </ListItem>
                                         <ListItem>

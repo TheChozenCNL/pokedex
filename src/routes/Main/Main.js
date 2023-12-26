@@ -14,8 +14,12 @@ import TablePagination from '@mui/material/TablePagination';
 
 export default function Main() {
     const [pokemonList, setPokemonList] = useState([]);
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const [filteredPokemonList, setFilteredPokemonList] = useState([]);
+    const [filterTerm, setFilterTerm] = useState('');
 
     useEffect(() => {
         const fetchPokemon = async () => {
@@ -25,6 +29,7 @@ export default function Main() {
                     id: index + 1,
                     name: pokemon.name,
                     url: POKEAPI_SPRITE_URL + (index + 1) + '.svg',
+                    types: pokemon.types,
                 }));
                 setPokemonList(obj);
             } catch (error) {
@@ -45,13 +50,27 @@ export default function Main() {
 
     const paginatedPokemon = pokemonList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
+    const handleFilterChange = (event) => {
+        setFilterTerm(event.target.value);
+        const filteredList = pokemonList.filter((pokemon) =>
+            pokemon.name.toLowerCase().includes(event.target.value.toLowerCase())
+        );
+        setFilteredPokemonList(filteredList);
+    };
+
     return (
         <Grid container spacing={2}>
             <Grid item xs>
-                <Box minWidth="13em" mr={2} mt={5}>
+                <Box width="13em" minWidth="13em" order={-1} mr={2} mt={5}>
                     <Paper sx={{p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <Typography variant="h5">Filters</Typography>
-                        <TextField label="Search by name" margin="normal" fullWidth/>
+                        <TextField
+                            label="Search by name"
+                            value={filterTerm}
+                            onChange={handleFilterChange}
+                            margin="normal"
+                            fullWidth
+                        />
                     </Paper>
                 </Box>
             </Grid>
@@ -66,11 +85,17 @@ export default function Main() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
                 <Grid container direction="row" justifyContent="center" alignItems="baseline">
-                    {paginatedPokemon.map((pokemon) => (
-                        <Grid item xs="auto" md={4} key={pokemon.id} mt={5}>
-                            <PokeCard pokemon={pokemon}/>
-                        </Grid>
-                    ))}
+                    {filteredPokemonList.length > 0
+                        ? filteredPokemonList.map((pokemon) => (
+                            <Grid item xs="auto" md={4} mt={5} key={pokemon.id}>
+                                <PokeCard pokemon={pokemon}/>
+                            </Grid>
+                        ))
+                        : paginatedPokemon.map((pokemon) => (
+                            <Grid item xs="auto" md={4} mt={5}  key={pokemon.id}>
+                                <PokeCard pokemon={pokemon}/>
+                            </Grid>
+                        ))}
                 </Grid>
             </Grid>
         </Grid>
