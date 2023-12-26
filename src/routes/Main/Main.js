@@ -20,7 +20,7 @@ export default function Main() {
             try {
                 const response = await axios.get(POKEAPI_URL + '?limit=100', POKEAPI_SPRITE_URL)
                 const obj = response.data.results.map((pokemon, index) => ({
-                    id: index,
+                    id: index + 1,
                     name: pokemon.name,
                     url: POKEAPI_SPRITE_URL + (index + 1) + '.svg'
                 }))

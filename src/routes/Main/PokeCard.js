@@ -21,7 +21,7 @@ export default function PokeCard(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button size="small" href={"/pokemon/"+ pokemon.id}>Learn More</Button>
             </CardActions>
         </Card>
     )
