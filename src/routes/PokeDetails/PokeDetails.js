@@ -34,20 +34,21 @@ const PokeDetails = () => {
     return (
         <div
             style={{
-                width: '1000px',
-                Height: '100vh',
+                width: '100%',
+                height: '100%',
                 margin: '10vh auto',
                 display: 'flex',
                 justifyContent: 'center',
+                alignItems: 'center',
             }}
         >
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
+            <Grid container spacing={2} style={{ maxWidth: '1000px' }}>
+                <Grid item xs={12} sm={6}>
                     <Card
                         sx={{
                             height: '100%',
-                            justifyContent: 'center', // Центруємо картинку по горизонталі
-                            alignItems: 'center', // Центруємо картинку по вертикалі
+                            justifyContent: 'center',
+                            alignItems: 'center',
                         }}
                     >
                         <CardContent>
@@ -66,12 +67,12 @@ const PokeDetails = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                     <Card
                         sx={{
                             height: '100%',
-                            justifyContent: 'center', // Центруємо детальну інформацію по горизонталі
-                            alignItems: 'center', // Центруємо детальну інформацію по вертикалі
+                            justifyContent: 'center',
+                            alignItems: 'center',
                         }}
                     >
                         <CardContent>
@@ -97,10 +98,10 @@ const PokeDetails = () => {
                                         <ListItem>
                                             <ListItemText primary="Abilities" secondary={pokemon.abilities.map((ability) => ability.ability.name).join(', ')} />
                                         </ListItem>
-                                        <Button variant="contained" color="primary" href="/">
-                                            Back
-                                        </Button>
                                     </List>
+                                    <Button variant="contained" color="primary" href="/">
+                                        Back
+                                    </Button>
                                 </>
                             )}
                         </CardContent>
